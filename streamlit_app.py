@@ -1,8 +1,9 @@
 import streamlit as st
-from streamlit_option_menu import option_menu
 
+# Konfigurasi halaman
 st.set_page_config(page_title="Kalkulator Karbohidrat Harian", layout="centered")
 
+# Fungsi: Hitung kebutuhan karbohidrat harian
 def hitung_kebutuhan_karbo(berat_badan, tingkat_aktivitas):
     faktor_aktivitas = {
         "Rendah (sedentari)": 4,
@@ -12,11 +13,12 @@ def hitung_kebutuhan_karbo(berat_badan, tingkat_aktivitas):
     kebutuhan = berat_badan * faktor_aktivitas[tingkat_aktivitas]
     return kebutuhan
 
-with st.sidebar:
-    selected = option_menu("Navigasi", ["Kalkulator", "Informasi Karbohidrat"],
-                           icons=["calculator", "info-circle"], default_index=0)
+# Navigasi menggunakan radio di sidebar
+st.sidebar.title("Navigasi")
+halaman = st.sidebar.radio("Pilih halaman:", ["Kalkulator", "Informasi Karbohidrat"])
 
-if selected == "Kalkulator":
+# Halaman Kalkulator
+if halaman == "Kalkulator":
     st.title("🧮 Kalkulator Karbohidrat Harian")
     st.markdown("Hitung kebutuhan karbohidrat harian berdasarkan berat badan dan aktivitas.")
 
@@ -29,7 +31,8 @@ if selected == "Kalkulator":
         st.success(f"Kebutuhan karbohidrat harian Anda adalah sekitar **{kebutuhan} gram** per hari.")
         st.caption("Sumber: [Alodokter](https://www.alodokter.com/kebutuhan-karbohidrat-per-hari-dan-cara-memenuhinya)")
 
-elif selected == "Informasi Karbohidrat":
+# Halaman Informasi
+elif halaman == "Informasi Karbohidrat":
     st.title("🍚 Informasi Kebutuhan Karbohidrat")
     st.image("https://cdn.alodokter.com/raw/upload/alodokter/shutterstock_1032429234_1.jpg", use_column_width=True)
     st.markdown("""
