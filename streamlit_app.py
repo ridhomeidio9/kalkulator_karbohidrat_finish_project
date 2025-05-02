@@ -59,4 +59,3 @@ Rata-rata, kebutuhan karbohidrat per hari:
 
 📚 Baca selengkapnya: [Alodokter](https://www.alodokter.com/kebutuhan-karbohidrat-per-hari-dan-cara-memenuhinya)
 """)
-streamlit run streamlit_app.py
