@@ -1,12 +1,9 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
 
-# Konfigurasi halaman
 st.set_page_config(page_title="Kalkulator Karbohidrat Harian", layout="centered")
 
-# Fungsi: Hitung kebutuhan karbohidrat harian
 def hitung_kebutuhan_karbo(berat_badan, tingkat_aktivitas):
-    # Berdasarkan data dari Alodokter
     faktor_aktivitas = {
         "Rendah (sedentari)": 4,
         "Sedang (aktivitas ringan - sedang)": 5,
@@ -15,12 +12,10 @@ def hitung_kebutuhan_karbo(berat_badan, tingkat_aktivitas):
     kebutuhan = berat_badan * faktor_aktivitas[tingkat_aktivitas]
     return kebutuhan
 
-# Navigasi halaman
 with st.sidebar:
     selected = option_menu("Navigasi", ["Kalkulator", "Informasi Karbohidrat"],
                            icons=["calculator", "info-circle"], default_index=0)
 
-# Halaman 1: Kalkulator
 if selected == "Kalkulator":
     st.title("🧮 Kalkulator Karbohidrat Harian")
     st.markdown("Hitung kebutuhan karbohidrat harian berdasarkan berat badan dan aktivitas.")
@@ -32,10 +27,8 @@ if selected == "Kalkulator":
     if st.button("Hitung"):
         kebutuhan = hitung_kebutuhan_karbo(berat, aktivitas)
         st.success(f"Kebutuhan karbohidrat harian Anda adalah sekitar **{kebutuhan} gram** per hari.")
-
         st.caption("Sumber: [Alodokter](https://www.alodokter.com/kebutuhan-karbohidrat-per-hari-dan-cara-memenuhinya)")
 
-# Halaman 2: Informasi Karbohidrat
 elif selected == "Informasi Karbohidrat":
     st.title("🍚 Informasi Kebutuhan Karbohidrat")
     st.image("https://cdn.alodokter.com/raw/upload/alodokter/shutterstock_1032429234_1.jpg", use_column_width=True)
@@ -63,10 +56,3 @@ Rata-rata, kebutuhan karbohidrat per hari:
 
 📚 Baca selengkapnya: [Alodokter](https://www.alodokter.com/kebutuhan-karbohidrat-per-hari-dan-cara-memenuhinya)
 """)
-
----
-
-### 📦 Daftar Dependensi (`requirements.txt`)
-
-```txt
-streamlit
