@@ -35,27 +35,34 @@ if halaman == "Kalkulator":
 elif halaman == "Informasi Karbohidrat":
     st.title("🍚 Informasi Kebutuhan Karbohidrat")
     st.image("https://cdn.alodokter.com/raw/upload/alodokter/shutterstock_1032429234_1.jpg", use_column_width=True)
+    
     st.markdown("""
-### Berapa Banyak Karbohidrat yang Dibutuhkan?
-Menurut **Alodokter**, jumlah karbohidrat yang dibutuhkan setiap orang berbeda-beda tergantung:
-- Berat badan
-- Tingkat aktivitas fisik
-- Kondisi kesehatan
+### Saran Makanan untuk Memenuhi Kebutuhan Karbohidrat
 
-Rata-rata, kebutuhan karbohidrat per hari:
-- **Sedentari**: 4 gram/kg berat badan
-- **Aktivitas ringan-sedang**: 5 gram/kg
-- **Aktivitas berat**: 6 gram/kg
+Berikut adalah beberapa contoh makanan yang kaya akan karbohidrat beserta jumlah karbohidrat dalam setiap porsinya:
 
-### Contoh Sumber Karbohidrat Sehat:
-- Nasi merah
-- Kentang
-- Oatmeal
-- Roti gandum utuh
-- Buah-buahan dan sayuran
-- Kacang-kacangan
-
-> Karbohidrat merupakan sumber energi utama, tapi penting untuk memilih karbohidrat kompleks dan berserat tinggi.
+""")
+    
+    # Daftar makanan dan karbohidrat
+    makanan = [
+        ("Nasi Merah (150g)", 35),
+        ("Kentang (150g)", 30),
+        ("Oatmeal (40g)", 27),
+        ("Roti Gandum Utuh (40g)", 20),
+        ("Quinoa (185g setelah dimasak)", 39),
+        ("Pasta Gandum Utuh (200g setelah dimasak)", 40),
+        ("Pisang (118g)", 27),
+        ("Kacang-kacangan (40g)", 20),
+        ("Sereal (30g)", 20),
+        ("Jagung (100g)", 19)
+    ]
+    
+    # Menampilkan daftar makanan dan karbohidrat
+    for item in makanan:
+        st.markdown(f"**{item[0]}**: {item[1]} gram karbohidrat")
+    
+    st.markdown("""
+> Pilih makanan yang sesuai dengan kebutuhan karbohidrat Anda, dan pastikan untuk memadukan dengan sumber makanan lain agar pola makan lebih seimbang.
 
 📚 Baca selengkapnya: [Alodokter](https://www.alodokter.com/kebutuhan-karbohidrat-per-hari-dan-cara-memenuhinya)
 """)
