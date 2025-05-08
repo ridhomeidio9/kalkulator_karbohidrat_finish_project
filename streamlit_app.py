@@ -1,68 +1,49 @@
 import streamlit as st
 
-# Konfigurasi halaman
-st.set_page_config(page_title="Kalkulator Karbohidrat Harian", layout="centered")
+def halaman_beranda():
+    st.title("Kebutuhan Karbohidrat Harian")
+    st.markdown("""
+        Selamat datang di kalkulator kebutuhan karbohidrat harian!
 
-# Fungsi: Hitung kebutuhan karbohidrat harian
-def hitung_kebutuhan_karbo(berat_badan, tingkat_aktivitas):
-    faktor_aktivitas = {
-        "Rendah (sedentari)": 4,
-        "Sedang (aktivitas ringan - sedang)": 5,
-        "Tinggi (aktivitas berat)": 6
-    }
-    kebutuhan = berat_badan * faktor_aktivitas[tingkat_aktivitas]
-    return kebutuhan
+        Karbohidrat adalah sumber energi utama bagi tubuh. Jumlah kebutuhan karbohidrat harian seseorang tergantung dari usia, berat badan, dan tingkat aktivitas fisik.
 
-# Navigasi menggunakan radio di sidebar
+        **Pedoman Umum:**
+        - Energi harian: 25–30 kkal per kg berat badan
+        - 45–65% dari total energi berasal dari karbohidrat
+        - 1 gram karbohidrat = 4 kkal
+
+        Silakan klik halaman **Kalkulator** di sidebar untuk mulai menghitung kebutuhan Anda.
+    """)
+
+def halaman_kalkulator():
+    st.title("Kalkulator Kebutuhan Karbohidrat Harian")
+
+    berat_badan = st.number_input("Masukkan berat badan Anda (kg):", min_value=1.0, step=0.5)
+    aktivitas = st.selectbox("Tingkat Aktivitas Fisik Anda:", ["Ringan", "Sedang", "Berat"])
+    
+    if aktivitas == "Ringan":
+        kalori_per_kg = 25
+    elif aktivitas == "Sedang":
+        kalori_per_kg = 30
+    else:
+        kalori_per_kg = 35
+
+    persentase_karbo_min = 0.45
+    persentase_karbo_max = 0.65
+
+    if st.button("Hitung Kebutuhan"):
+        total_kalori = berat_badan * kalori_per_kg
+        karbo_min = (total_kalori * persentase_karbo_min) / 4
+        karbo_max = (total_kalori * persentase_karbo_max) / 4
+
+        st.success(f"Kebutuhan kalori harian Anda: {total_kalori:.0f} kkal")
+        st.info(f"Kebutuhan karbohidrat harian Anda: {karbo_min:.0f}–{karbo_max:.0f} gram")
+
+# Sidebar navigasi
 st.sidebar.title("Navigasi")
-halaman = st.sidebar.radio("Pilih halaman:", ["Kalkulator", "Informasi Karbohidrat"])
+halaman = st.sidebar.radio("Pilih Halaman:", ["Beranda", "Kalkulator"])
 
-# Halaman Kalkulator
-if halaman == "Kalkulator":
-    st.title("🧮 Kalkulator Karbohidrat Harian")
-    st.markdown("Hitung kebutuhan karbohidrat harian berdasarkan berat badan dan aktivitas.")
-
-    berat = st.number_input("Masukkan berat badan Anda (kg):", min_value=1, max_value=300, step=1)
-    aktivitas = st.selectbox("Pilih tingkat aktivitas fisik Anda:", 
-                             ["Rendah (sedentari)", "Sedang (aktivitas ringan - sedang)", "Tinggi (aktivitas berat)"])
-
-    if st.button("Hitung"):
-        kebutuhan = hitung_kebutuhan_karbo(berat, aktivitas)
-        st.success(f"Kebutuhan karbohidrat harian Anda adalah sekitar **{kebutuhan} gram** per hari.")
-        st.caption("Sumber: [Alodokter](https://www.alodokter.com/kebutuhan-karbohidrat-per-hari-dan-cara-memenuhinya)")
-
-# Halaman Informasi
-elif halaman == "Informasi Karbohidrat":
-    st.title("🍚 Informasi Kebutuhan Karbohidrat")
-    st.image("https://cdn.alodokter.com/raw/upload/alodokter/shutterstock_1032429234_1.jpg", use_column_width=True)
-    
-    st.markdown("""
-### Saran Makanan untuk Memenuhi Kebutuhan Karbohidrat
-
-Berikut adalah beberapa contoh makanan yang kaya akan karbohidrat beserta jumlah karbohidrat dalam setiap porsinya:
-
-""")
-    
-    # Daftar makanan dan karbohidrat
-    makanan = [
-        ("Nasi Merah (150g)", 35),
-        ("Kentang (150g)", 30),
-        ("Oatmeal (40g)", 27),
-        ("Roti Gandum Utuh (40g)", 20),
-        ("Quinoa (185g setelah dimasak)", 39),
-        ("Pasta Gandum Utuh (200g setelah dimasak)", 40),
-        ("Pisang (118g)", 27),
-        ("Kacang-kacangan (40g)", 20),
-        ("Sereal (30g)", 20),
-        ("Jagung (100g)", 19)
-    ]
-    
-    # Menampilkan daftar makanan dan karbohidrat
-    for item in makanan:
-        st.markdown(f"**{item[0]}**: {item[1]} gram karbohidrat")
-    
-    st.markdown("""
-> Pilih makanan yang sesuai dengan kebutuhan karbohidrat Anda, dan pastikan untuk memadukan dengan sumber makanan lain agar pola makan lebih seimbang.
-
-📚 Baca selengkapnya: [Alodokter](https://www.alodokter.com/kebutuhan-karbohidrat-per-hari-dan-cara-memenuhinya)
-""")
+if halaman == "Beranda":
+    halaman_beranda()
+else:
+    halaman_kalkulator()
